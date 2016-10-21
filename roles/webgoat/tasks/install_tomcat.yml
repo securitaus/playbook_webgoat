@@ -1,0 +1,12 @@
+---
+# file: webgoat/tasks/install_tomcat.yml
+
+- include: common.yml
+
+- name: Install tomcat and dependencies
+  package:
+    state: present
+    name: '{{ item }}'
+  with_items: "{{ packages }}"
+  tags:
+    - install-tomcat

@@ -1,0 +1,9 @@
+---
+# file: webgoat/vars/ubuntu.yml
+
+packages:
+  - default-jre
+  - tomcat7
+
+etc_dir: /etc/tomcat7/
+usr_dir: /usr/share/tomcat7/

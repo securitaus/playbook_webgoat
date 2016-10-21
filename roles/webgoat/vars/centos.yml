@@ -1,0 +1,9 @@
+---
+# file: webgoat/vars/centos.yml
+
+packages:
+  - java-1.8.0-openjdk.x86_64
+  - tomcat
+
+etc_dir: /etc/tomcat/
+usr_dir: /usr/share/tomcat/

@@ -1,0 +1,9 @@
+---
+# file: webgoat/vars/main.yml
+
+webgoat: 
+  url: "https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/webgoat/WebGoat-5.4.war"
+  dest: "{{ usr_dir }}webapps/webgoat.war"
+  auth_ips:
+    # add IP's authorized to access webgoat
+    - "127.0.0.1"

@@ -1,0 +1,32 @@
+---
+# file: webgoat/tasks/post_configuration.yml
+
+- include: common.yml
+
+- name: Bind tomcat to IPv4 and set Java options
+  lineinfile:
+    dest: /etc/tomcat/tomcat.conf
+    regexp: '^#JAVA_OPTS="-Xminf0.1 -Xmaxf0.3"'
+    line: JAVA_OPTS="-Djava.net.preferIPv4Stack=true -Djava.security.egd=file:/dev/./urandom -Djava.awt.headless=true -Xmx512m -XX:MaxPermSize=256m -XX:+UseConcMarkSweepGC"
+    backrefs: true
+  tags:
+    - bind-tomcat-IPv4
+    - set-tomcat-java-options
+
+- name: Update WebGoat users and roles
+  blockinfile:
+    dest: /etc/tomcat/tomcat-users.xml
+    marker: "<!-- {mark} ANSIBLE MANAGED BLOCK -->"
+    insertbefore: "</tomcat-users>"
+    content: |
+      <!-- WebGoat Users/Roles -->
+        <role rolename="webgoat_basic"/>
+        <role rolename="webgoat_admin"/>
+        <role rolename="webgoat_user"/>
+        <role rolename="tomcat"/>
+        <user password="webgoat" roles="webgoat_admin" username="webgoat"/>
+        <user password="basic" roles="webgoat_user,webgoat_basic" username="basic"/>
+        <user password="tomcat" roles="tomcat" username="tomcat"/>
+        <user password="guest" roles="webgoat_user" username="guest"/>
+  tags:
+    - update-webgoat-users-roles

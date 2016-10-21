@@ -1,0 +1,18 @@
+---
+# file: webgoat/tasks/install_webgoat.yml
+
+- include: common.yml
+
+- name: download webgoat-5.4
+  get_url:
+    url: "{{ webgoat.url }}"
+    dest: "{{ webgoat.dest }}"
+    owner: tomcat
+    group: tomcat
+    mode: 0644
+  register: webgoat_download
+  retries: 3
+  delay: 5
+  until: webgoat_download|success
+  tags:
+    - download-webgoat

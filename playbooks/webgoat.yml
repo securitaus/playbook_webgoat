@@ -1,0 +1,7 @@
+---
+# file: playbooks/webgoat.yml
+
+- hosts: webgoat
+  become: true
+  roles:
+    - webgoat

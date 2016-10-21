@@ -1,0 +1,21 @@
+---
+# file: webgoat/tasks/secure_webgoat_access.yml
+
+- include: common.yml
+
+- name: Whitelist IP access to tomcat ports 8080
+  iptables: "chain=INPUT protocol=tcp source={{ item }} destination_port=8080 jump=ACCEPT"
+  with_items: "{{ webgoat.auth_ips }}"
+  tags:
+    - whitelist-tomcat-access-8080
+
+- name: Whitelist IP access to tomcat ports 8009
+  iptables: "chain=INPUT protocol=tcp source={{ item }} destination_port=8009 jump=ACCEPT"
+  with_items: "{{ webgoat.auth_ips }}"
+  tags:
+    - whitelist-tomcat-access-8009
+
+- name: Explicit DROP for traffic to tomcat ports 8080 and 8009
+  iptables: chain=INPUT protocol=tcp source=0.0.0.0/0 destination_port=8080 destination_port=8009 jump=DROP
+  tags:
+    - explicit-tomcat-drop

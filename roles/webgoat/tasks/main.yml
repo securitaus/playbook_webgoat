@@ -1,0 +1,18 @@
+---
+# file: webgoat/tasks/main.yml
+
+- include: install_tomcat.yml
+  tags:
+    - install-tomcat
+
+- include: install_webgoat.yml
+  tags:
+    - install-webgoat
+
+- include: post_configuration.yml
+  tags:
+    - post-configuration
+
+- include: secure_webgoat_access.yml
+  tags:
+    - secure-webgoat-access
